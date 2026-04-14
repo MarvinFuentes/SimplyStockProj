@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main"
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+<ImageView
+    android:id="@+id/eirImageView"
+    android:layout_marginLeft="5dp"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_gravity="center_vertical"
+    android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/eirLinearLayout"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/eirCategoryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Category"
+            android:textColor="@color/SimplyStockBlue"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/eirDescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/eirAvailabilityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Availablity"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/eirEnterAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter an amount"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/eirAmountEnteredTextText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number"
+            android:backgroundTint="#0770B3"
+            android:textColorHint="#0770B3"
+            android:textColor="@color/black"
+            android:hint="Qty" />
+
+    </LinearLayout>
+
+</LinearLayout>

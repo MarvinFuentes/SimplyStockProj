@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/eHomeBtn"
+        android:title="Home"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/eWelcomingBtn"
+        android:title="Welcome Menu"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/eCartBtn"
+        android:title="Cart"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/eLogOutBtn"
+        android:title="Log Out"
+        app:showAsAction="never"/>
+</menu>

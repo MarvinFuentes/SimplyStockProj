@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D7D5D5"
+    android:backgroundTint="#FFE9B7"
+    tools:context=".NewBusinessFragment">
+
+
+    <Button
+        android:id="@+id/nbBackBtn"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="#0770B3"
+        android:text="Welcoming Menu"
+        android:textSize="25sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:text="Create Your Business"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nbBusinessPin"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#0770B3"
+        android:ems="10"
+        android:hint="Business PIN"
+        android:inputType="numberPassword"
+        android:textColorHint="#0770B3"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/nbCityName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/nbBusinessNameText"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#0770B3"
+        android:ems="10"
+        android:hint="Business Name"
+        android:inputType="text"
+        android:textColorHint="#0770B3"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/nbBusinessPin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/nbCityName"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#0770B3"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="text"
+        android:textColorHint="#0770B3"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/nbState"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/nbState"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#0770B3"
+        android:ems="10"
+        android:hint="State"
+        android:inputType="text"
+        android:textColorHint="#0770B3"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/nbNewBusinessBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/nbNewBusinessBtn"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:backgroundTint="#0770B3"
+        android:text="Create Business"
+        android:textSize="25sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/nbBackBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
