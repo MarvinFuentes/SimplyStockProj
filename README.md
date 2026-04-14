@@ -166,22 +166,41 @@ And this is only the beginning.
 ## 📱 Application Screens
 
 ### Login & Authentication
-![Login](screenshots/LoginActivity.png)
-![Sign Up](screenshots/SignUpActivity.png)
-![Forgot Password](screenshots/ForgotPassActivity.png)
+<p align="center">
+  <img src="screenshots/LoginActivity.png" width="250" />
+  <img src="screenshots/SignUpActivity.png" width="250" />
+  <img src="screenshots/ForgotPassActivity.png" width="250" />
+</p>
+<p align="center"><i>Login, account creation, and password reset workflow</i></p>
+<br>
 
 ### Inventory System
-![Employee Inventory](screenshots/InventoryFrag-Employee.png)
-![Cart Checkout](screenshots/CartFrag-Employee.png)
+<p align="center">
+  <img src="screenshots/InventoryFrag-Employee.png" width="250" />
+  <img src="screenshots/CartFrag-Employee.png" width="250" />
+</p>
+<p align="center"><i>Employee inventory view and cart checkout system</i></p>
+<br>
 
 ### Manager Features
-![New Item](screenshots/NewItemFrag-Manager.png)
-![Existing Items](screenshots/ExistingItemsFrag-Manager.png)
-![Profile Management](screenshots/ProfileManagementFrag-Manager.png)
+<p align="center">
+  <img src="screenshots/NewItemFrag-Manager.png" width="250" />
+  <img src="screenshots/ExistingItemsFrag-Manager.png" width="250" />
+  <img src="screenshots/ProfileManagementFrag-Manager.png" width="250" />
+</p>
+<p align="center"><i>New Item creation, existing items, and profile management</i></p>
+<br>
 
 ### Analytics
-![Consumption Analytics](screenshots/ConsumptionAnalyticsChartFrag-Manager.png)
+<p align="center">
+  <img src="screenshots/ConsumptionAnalyticsChartFrag-Manager.png" width="400" />
+</p>
+<p align="center"><i>Bar chart using AnyChart for consumption analytic</i></p>
+<br>
 
 ### Business Selection
-![Existing Businesses](screenshots/ExistingBusinessFrag.png)
-
+<p align="center">
+  <img src="screenshots/ExistingBusinessFrag.png" width="300" />
+</p>
+<p align="center"><i>Scroll view displaying all availablr businesses</i></p>
+<br>
