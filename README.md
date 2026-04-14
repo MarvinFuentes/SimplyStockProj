@@ -150,7 +150,7 @@ Even though I have struggled with time management in the past, FDD helped me:
 
 ## 🏁 Final Thoughts
 
-This project represents my first full entry-level full stack mobile application.
+This project represents my first entry-level full stack mobile application.
 
 From database design to UI, to implementing real-world features like carts, checkouts, and analytics — this was a major step forward in my development journey.
 
