@@ -188,7 +188,7 @@ And this is only the beginning.
   <img src="screenshots/ExistingItemsFrag-Manager.png" width="250" />
   <img src="screenshots/ProfileManagementFrag-Manager.png" width="250" />
 </p>
-<p align="center"><i>New Item creation, existing items, and profile management</i></p>
+<p align="center"><i>New item creation, existing items, and profile management</i></p>
 <br>
 
 ### Analytics
@@ -202,5 +202,5 @@ And this is only the beginning.
 <p align="center">
   <img src="screenshots/ExistingBusinessFrag.png" width="300" />
 </p>
-<p align="center"><i>Scroll view displaying all availablr businesses</i></p>
+<p align="center"><i>Scroll view displaying all available businesses</i></p>
 <br>
