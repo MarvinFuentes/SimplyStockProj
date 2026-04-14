@@ -1,6 +1,6 @@
 # 📦 Simply Stock – Mobile Inventory Management App (Ongoing Development) 
 
-Simply Stock is a role-based mobile inventory management application designed for small businesses. The goal of this project was to create a simple, scalable, and free solution that allows businesses to track inventory in real time while maintaining employee accountability.
+The goal is to create a simple and easy-to-use mobile app that is free and scalable. This app would primarily help small businesses with helpful tools like item creation, live inventory, a checkout system, user authentication, role-based access, consumption analytics, and more.
 
 ---
 
