@@ -160,3 +160,28 @@ I’m proud of how far I’ve come with:
 - building a complete system from scratch  
 
 And this is only the beginning.
+
+---
+
+## 📱 Application Screens
+
+### Login & Authentication
+![Login](screenshots/LoginActivity.png)
+![Sign Up](screenshots/SignUpActivity.png)
+![Forgot Password](screenshots/ForgotPassActivity.png)
+
+### Inventory System
+![Employee Inventory](screenshots/InventoryFrag-Employee.png)
+![Cart Checkout](screenshots/CartFrag-Employee.png)
+
+### Manager Features
+![New Item](screenshots/NewItemFrag-Manager.png)
+![Existing Items](screenshots/ExistingItemsFrag-Manager.png)
+![Profile Management](screenshots/ProfileManagementFrag-Manager.png)
+
+### Analytics
+![Consumption Analytics](screenshots/ConsumptionAnalyticsChartFrag-Manager.png)
+
+### Business Selection
+![Existing Businesses](screenshots/ExistingBusinessFrag.png)
+
