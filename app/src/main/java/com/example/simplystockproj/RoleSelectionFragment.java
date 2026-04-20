@@ -20,7 +20,7 @@ import android.widget.Toast;
 public class RoleSelectionFragment extends Fragment {
     private int businessId;
     private String businessName;
-    private String businessPin;
+    private String managerPin;
 
     public RoleSelectionFragment() {
         // Required empty public constructor
@@ -45,7 +45,7 @@ public class RoleSelectionFragment extends Fragment {
         if(getArguments() != null){
             businessId = getArguments().getInt("BUSINESS_ID");
             businessName = getArguments().getString("BUSINESS_NAME");
-            businessPin = getArguments().getString("PIN");
+            managerPin = getArguments().getString("MANAGER_PIN");
         }
 
         employeeBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,7 @@ public class RoleSelectionFragment extends Fragment {
 
     public void showMessage(){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Enter the business PIN.");
+        builder.setTitle("Enter the managerial PIN.");
 
         final EditText input = new EditText(requireContext());
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
@@ -91,7 +91,7 @@ public class RoleSelectionFragment extends Fragment {
                 String enteredPin = input.getText().toString().trim();
 
                 //Check to see if the PIN matches the one in the database
-                if(enteredPin.equals(businessPin)){
+                if(enteredPin.equals(managerPin)){
                     Toast.makeText(requireContext(), "PIN entered correctly", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(requireContext(), ManagerActivity.class);

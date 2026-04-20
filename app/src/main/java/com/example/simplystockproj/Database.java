@@ -25,6 +25,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String OWNER_ID_COL = "owner_id";
     public static final String BUSINESS_NAME_COL = "business_name";
     public static final String PIN_COL = "pin";
+    public static final String MANAGER_PIN_COL = "manager_pin";
     public static final String CITY_COL = "city";
     public static final String STATE_COL = "state";
 
@@ -67,6 +68,7 @@ public class Database extends SQLiteOpenHelper {
                 + OWNER_ID_COL + " INTEGER NOT NULL, "
                 + BUSINESS_NAME_COL + " TEXT NOT NULL, "
                 + PIN_COL + " TEXT NOT NULL, "
+                + MANAGER_PIN_COL + " TEXT NOT NULL, "
                 + CITY_COL + " TEXT NOT NULL, "
                 + STATE_COL + " TEXT NOT NULL"
                 + ");";
@@ -152,13 +154,14 @@ public class Database extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean createNewBusiness(int ownerId, String businessName, String pin, String city, String state){
+    public boolean createNewBusiness(int ownerId, String businessName, String pin, String managerPin, String city, String state){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(OWNER_ID_COL, ownerId);
         values.put(BUSINESS_NAME_COL, businessName);
         values.put(PIN_COL, pin);
+        values.put(MANAGER_PIN_COL, managerPin);
         values.put(CITY_COL, city);
         values.put(STATE_COL, state);
 
@@ -222,4 +225,22 @@ public class Database extends SQLiteOpenHelper {
         return rowsDeleted > 0;
     }
 
+    public boolean updateItemInfo(int itemId, String category, String description, String url){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ITEM_CATEGORY_COL, category);
+        values.put(ITEM_DESCRIPTION_COL, description);
+        values.put(ITEM_URL_COL, url);
+
+        int rowsUpdated = db.update(TABLE_ITEMS, values, ITEM_ID_COL + "=?", new String[]{String.valueOf(itemId)});
+        return rowsUpdated > 0;
+    }
+
+    public boolean deleteItem(int itemId){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int rowsDeleted = db.delete(TABLE_ITEMS, ITEM_ID_COL + "=?", new String[]{String.valueOf(itemId)});
+        return rowsDeleted > 0;
+    }
 }

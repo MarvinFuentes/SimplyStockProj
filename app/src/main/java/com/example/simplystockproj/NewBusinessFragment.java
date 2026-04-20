@@ -39,6 +39,7 @@ public class NewBusinessFragment extends Fragment {
 
         EditText businessNameText = view.findViewById(R.id.nbBusinessNameText);
         EditText businessPinText = view.findViewById(R.id.nbBusinessPin);
+        EditText businessManagerAccessText = view.findViewById(R.id.nbManagerPin);
         EditText businessCityText = view.findViewById(R.id.nbCityName);
         EditText businessStateText = view.findViewById(R.id.nbState);
 
@@ -47,6 +48,7 @@ public class NewBusinessFragment extends Fragment {
             public void onClick(View v) {
                 String businessName = businessNameText.getText().toString().trim();
                 String businessPin = businessPinText.getText().toString().trim();
+                String managerPin = businessManagerAccessText.getText().toString().trim();
                 String cityName = businessCityText.getText().toString().trim();
                 String stateName = businessStateText.getText().toString().trim();
 
@@ -63,7 +65,7 @@ public class NewBusinessFragment extends Fragment {
                     return;
                 }
 
-                //Pin requirements
+                //Pin requirements - This pin is for access to the business or organization
                 if(businessPin.isEmpty()){
                     businessCityText.setError("Pin is required");
                     return;
@@ -77,12 +79,26 @@ public class NewBusinessFragment extends Fragment {
                     return;
                 }
 
+                //Pin requirements - This pin is for access to manager tools
+                if(managerPin.isEmpty()){
+                    businessCityText.setError("Pin is required");
+                    return;
+                }
+                if(managerPin.length() < 4){
+                    businessPinText.setError("Pin must be at least 4 digits");
+                    return;
+                }
+                if(!managerPin.matches("\\d+")){
+                    businessPinText.setError("Pin can only contain digits");
+                    return;
+                }
+
                 // Check to see if the state the user entered is a valid state
                 // This feature is a maybe. I might add it on later
 
                 int ownerId = ((WelcomingActivity) requireActivity()).getUserId();
 
-                if(dbHelper.createNewBusiness(ownerId, businessName, businessPin, cityName, stateName)){
+                if(dbHelper.createNewBusiness(ownerId, businessName, businessPin, managerPin, cityName, stateName)){
                     Toast.makeText(requireContext(), "Business created successfully!", Toast.LENGTH_SHORT).show();
                     //Take the user back to the welcoming page to select their newly created business
                     requireActivity().getSupportFragmentManager().popBackStack();

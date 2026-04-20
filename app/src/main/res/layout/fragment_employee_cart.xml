@@ -13,7 +13,7 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="16dp"
         android:text="Cart - Checkout Menu"
         android:textAlignment="center"
         android:textColor="#0770B3"
@@ -42,8 +42,8 @@
 
     <ListView
         android:id="@+id/ecListView"
-        android:layout_width="409dp"
-        android:layout_height="508dp"
+        android:layout_width="match_parent"
+        android:layout_height="548dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/ecConfirmBtn"
         app:layout_constraintEnd_toEndOf="parent"

@@ -6,14 +6,16 @@ public class ExistingItem {
     int itemId;
     String category;
     String description;
+    String url;
     int availability;
     String imageUri;
     int amountToAdd;
 
-    public ExistingItem(int itemId, String category, String description, int availability, String imageUri, int amountToAdd){
+    public ExistingItem(int itemId, String category, String description, String url, int availability, String imageUri, int amountToAdd){
         this.itemId = itemId;
         this.category = category;
         this.description = description;
+        this.url = url;
         this.availability = availability;
         this.imageUri = imageUri;
         this.amountToAdd = amountToAdd;
@@ -65,5 +67,13 @@ public class ExistingItem {
 
     public void setAmountToAdd(int amountToAdd){
         this.amountToAdd = amountToAdd;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

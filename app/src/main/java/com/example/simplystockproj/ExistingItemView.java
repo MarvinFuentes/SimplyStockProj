@@ -19,8 +19,10 @@ public class ExistingItemView extends LinearLayout {
     TextView categoryTextView;
     TextView descriptionTextView;
     TextView availabilityTextView;
+    TextView URLTextView;
     ImageView existingImageView;
     EditText amountAdded;
+    Button editBtn, deleteBtn;
 
     public ExistingItemView(Context context){
         super(context);
@@ -39,8 +41,11 @@ public class ExistingItemView extends LinearLayout {
         categoryTextView = (TextView) findViewById(R.id.eirCategoryTextView);
         descriptionTextView = (TextView) findViewById(R.id.eirDescriptionTextView);
         availabilityTextView = (TextView) findViewById(R.id.eirAvailabilityTextView);
+        URLTextView = (TextView) findViewById(R.id.eirURLTextView);
         existingImageView = (ImageView) findViewById(R.id.eirImageView);
         amountAdded = (EditText) findViewById(R.id.eirAmountEnteredTextText);
+        editBtn = (Button) findViewById(R.id.eirEditItemBtn);
+        deleteBtn = (Button) findViewById(R.id.eirDeleteItemBtn);
     }
 
     public void setCategory(String category){
@@ -88,5 +93,17 @@ public class ExistingItemView extends LinearLayout {
 
     public void clearAmountEntered(){
         amountAdded.setText("");
+    }
+
+    public void setUrl(String url){
+        URLTextView.setText(url);
+    }
+
+    public Button getEditBtn(){
+        return editBtn;
+    }
+
+    public Button getDeleteBtn(){
+        return deleteBtn;
     }
 }
