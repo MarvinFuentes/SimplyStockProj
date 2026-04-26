@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
-        android:text="Select a Checkout Date"
+        android:text="Select a Checkout Period"
         android:textAlignment="center"
         android:textColor="#0770B3"
         android:textSize="30sp"

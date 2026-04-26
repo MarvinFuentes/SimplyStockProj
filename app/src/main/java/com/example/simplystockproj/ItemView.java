@@ -50,16 +50,18 @@ public class ItemView extends LinearLayout {
         descriptionTextView.setText(description);
     }
 
-    public void setAvalibility(int availability){
-        availabilityTextView.setText("Qty: " + availability);
+    public void setAvailability(int availability, int lowStock){
 
         if(availability == 0){
+            availabilityTextView.setText("Qty: " + availability + " - Out of Stock");
             availabilityTextView.setTextColor(Color.RED);
         }
-        else if(availability < 5){
-            availabilityTextView.setTextColor(Color.YELLOW);
+        else if(availability <= lowStock){
+            availabilityTextView.setText("Qty: " + availability + " - Low Stock");
+            availabilityTextView.setTextColor(Color.parseColor("#F39C12"));
         }
         else{
+            availabilityTextView.setText("Qty: " + availability);
             availabilityTextView.setTextColor(Color.GREEN);
         }
     }

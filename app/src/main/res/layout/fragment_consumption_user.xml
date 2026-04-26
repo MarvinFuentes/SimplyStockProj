@@ -12,21 +12,60 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
         android:text="Select a User"
         android:textAlignment="center"
         android:textColor="#0770B3"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/consRadioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.286" />
+
+    <RadioGroup
+        android:id="@+id/consRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/consUserlistView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/consFilterTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select a Filter"
+            android:textSize="19sp" />
+
+        <RadioButton
+            android:id="@+id/consDailyRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Daily"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/consWeeklyRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Weekly"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/consMonthlyRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Monthly"
+            android:textSize="15sp" />
+    </RadioGroup>
 
     <ListView
         android:id="@+id/consUserlistView"
         android:layout_width="match_parent"
-        android:layout_height="512dp"
-        android:layout_marginBottom="60dp"
+        android:layout_height="450dp"
+        android:layout_marginBottom="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

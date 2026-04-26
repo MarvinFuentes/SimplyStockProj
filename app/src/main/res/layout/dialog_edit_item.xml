@@ -36,4 +36,14 @@
         android:textColorHint="#0770B3"
         android:backgroundTint="#0770B3" />
 
+    <EditText
+        android:id="@+id/deiLowStockInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Low Stock"
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:textColorHint="#0770B3"
+        android:backgroundTint="#0770B3"/>
+
 </LinearLayout>

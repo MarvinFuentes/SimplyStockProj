@@ -90,16 +90,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#0770B3"
-                app:cornerRadius="0dp"
-                android:text="Edit" />
+                android:text="Edit"
+                android:textColor="@color/white"
+                app:cornerRadius="0dp"/>
 
             <Button
                 android:id="@+id/eirDeleteItemBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#0770B3"
-                app:cornerRadius="0dp"
-                android:text="Delete" />
+                android:backgroundTint="#B30707"
+                android:text="Delete"
+                android:textColor="@color/white"
+                app:cornerRadius="0dp"/>
 
         </LinearLayout>
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class ConsumptionUserFragment extends Fragment {
     SQLiteDatabase db;
     Cursor cursor;
     UserAdapter adapter;
+    String filterType = "daily";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,10 +37,37 @@ public class ConsumptionUserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ListView userListView = view.findViewById(R.id.consUserlistView);
+        RadioButton dailyFilterBtn = view.findViewById(R.id.consDailyRadioButton);
+        RadioButton weeklyFilterBtn = view.findViewById(R.id.consWeeklyRadioButton);
+        RadioButton monthlyFilterBtn = view.findViewById(R.id.consMonthlyRadioButton);
+
+        dailyFilterBtn.setChecked(true);
 
         dbHelper = new Database(requireContext());
         db = dbHelper.getReadableDatabase();
         adapter = new UserAdapter();
+
+        dailyFilterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterType = "daily";
+            }
+        });
+
+        weeklyFilterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterType = "weekly";
+            }
+        });
+
+        monthlyFilterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterType = "monthly";
+            }
+        });
+
 
         String bizId = String.valueOf(((ManagerActivity) requireActivity()).getBusinessId());
 
@@ -99,6 +128,7 @@ public class ConsumptionUserFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putInt("USER_ID", userIds.get(position));
                     bundle.putString("USER_NAME", userNames.get(position));
+                    bundle.putString("FILTER_TYPE", filterType);
 
                     ConsumptionDateFragment fragment = new ConsumptionDateFragment();
                     fragment.setArguments(bundle);

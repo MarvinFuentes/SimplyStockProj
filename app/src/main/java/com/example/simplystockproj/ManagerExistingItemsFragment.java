@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +55,10 @@ public class ManagerExistingItemsFragment extends Fragment {
 
         //Query to get all of the saved items from 'items' table
         //I use the business ID to keep it all organized
-        cursor = db.rawQuery("SELECT item_id, category, description, availability, image_uri, url FROM items WHERE business_id = ?",
-                new String[]{bizId}
-        );
+        cursor = db.rawQuery( "SELECT item_id, category, description, availability, image_uri, url, low_stock "
+                                + "FROM items WHERE business_id = ? "
+                                + "ORDER BY category ASC, description ASC",
+                                new String[]{bizId});
 
         while(cursor.moveToNext()){
             int itemId = cursor.getInt(0);
@@ -65,8 +67,9 @@ public class ManagerExistingItemsFragment extends Fragment {
             int availability = cursor.getInt(3);
             String imageUri = cursor.getString(4);
             String url = cursor.getString(5);
+            int lowStock = cursor.getInt(6);
 
-            adapter.addItem(new ExistingItem(itemId, category, description, url, availability, imageUri, 0));
+            adapter.addItem(new ExistingItem(itemId, category, description, url, availability, imageUri, 0, lowStock));
         }
 
         cursor.close();
@@ -144,9 +147,10 @@ public class ManagerExistingItemsFragment extends Fragment {
 
             existingItemView.setCategory(existingItem.getCategory());
             existingItemView.setDescription(existingItem.getDescription());
-            existingItemView.setAvailability(existingItem.getAvailability());
+            existingItemView.setAvailability(existingItem.getAvailability(), existingItem.getLowStock());
             existingItemView.setImage(existingItem.getImageUri());
             existingItemView.setUrl(existingItem.getUrl());
+            existingItem.setLowStock(existingItem.getLowStock());
 
             existingItemView.getDeleteBtn().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -201,35 +205,19 @@ public class ManagerExistingItemsFragment extends Fragment {
                     EditText categoryInputText = dialogView.findViewById(R.id.deiCategoryInput);
                     EditText descriptionInputText = dialogView.findViewById(R.id.deiDescriptionInput);
                     EditText urlInputText = dialogView.findViewById(R.id.deiUrlInput);
+                    EditText lowStockText = dialogView.findViewById(R.id.deiLowStockInput);
 
                     //Pre-fill the fields with the existing item data so the user can edit instead of retyping everything.
                     categoryInputText.setText(existingItem.getCategory());
                     descriptionInputText.setText(existingItem.getDescription());
                     urlInputText.setText(existingItem.getUrl());
+                    lowStockText.setText(String.valueOf(existingItem.getLowStock()));
 
                     builder.setView(dialogView);
 
-                    builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String newCategory = categoryInputText.getText().toString().trim();
-                            String newDescription = descriptionInputText.getText().toString().trim();
-                            String newUrl = urlInputText.getText().toString().trim();
-
-                            boolean updated = dbHelper.updateItemInfo(existingItem.getItemId(), newCategory, newDescription, newUrl);
-
-                            if (updated) {
-                                existingItem.setCategory(newCategory);
-                                existingItem.setDescription(newDescription);
-                                existingItem.setUrl(newUrl);
-
-                                notifyDataSetChanged();
-                                Toast.makeText(requireContext(), "Item update successfully.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(requireContext(), "Failed to update item.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                    //MUST set the PositiveButton to null so Android does NOT auto close the dialog.
+                    //The default behavior kept closing dialog even if validation fails.
+                    builder.setPositiveButton("Save", null);
 
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
@@ -238,7 +226,71 @@ public class ManagerExistingItemsFragment extends Fragment {
                         }
                     });
 
-                    builder.show();
+                    //Create dialog instance so I can manually control button behavior
+                    AlertDialog dialog = builder.create();
+
+                    //This runs after dialog is shown - buttons exist at this point
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialogInterface) {
+                            //Safely grab the Save button
+                            Button saveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+                            saveBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String newCategory = categoryInputText.getText().toString().trim();
+                                    String newDescription = descriptionInputText.getText().toString().trim();
+                                    String newUrl = urlInputText.getText().toString().trim();
+                                    String newLowStock = lowStockText.getText().toString().trim();
+
+                                    if(newCategory.isEmpty()){
+                                        categoryInputText.setError("Category is required");
+                                        return;
+                                    }
+
+                                    if(newDescription.isEmpty()){
+                                        descriptionInputText.setError("Description is required");
+                                        return;
+                                    }
+
+                                    if(!newUrl.isEmpty() && !Patterns.WEB_URL.matcher(newUrl).matches()){
+                                        urlInputText.setError("Enter a valid URL");
+                                        return;
+                                    }
+
+                                    if(newLowStock.isEmpty()){
+                                        lowStockText.setError("Must Enter quantity");
+                                        return;
+                                    }
+
+                                    if(!newLowStock.matches("\\d+")){
+                                        lowStockText.setError("Only digits can be entered");
+                                        return;
+                                    }
+
+                                    boolean updated = dbHelper.updateItemInfo(existingItem.getItemId(), newCategory, newDescription, newUrl, Integer.parseInt(newLowStock));
+
+                                    if (updated) {
+                                        existingItem.setCategory(newCategory);
+                                        existingItem.setDescription(newDescription);
+                                        existingItem.setUrl(newUrl);
+                                        existingItem.setLowStock(Integer.parseInt(newLowStock));
+
+                                        notifyDataSetChanged(); //Refresh list
+                                        Toast.makeText(requireContext(), "Item update successfully.", Toast.LENGTH_SHORT).show();
+
+                                        dialog.dismiss(); //Only close dialog if update is successful
+                                    } else {
+                                        Toast.makeText(requireContext(), "Failed to update item.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    //Show dialog not builder
+                    dialog.show();
                 }
             });
 

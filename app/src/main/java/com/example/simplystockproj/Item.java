@@ -6,13 +6,15 @@ public class Item {
     String description;
     int availability;
     String imageUri;
+    int lowStock;
 
-    public Item(int itemId, String category, String description, int availability, String imageUri){
+    public Item(int itemId, String category, String description, int availability, String imageUri, int lowStock){
         this.itemId = itemId;
         this.category = category;
         this.description = description;
         this.availability = availability;
         this.imageUri = imageUri;
+        this.lowStock = lowStock;
     }
 
     public int getItemId(){
@@ -49,5 +51,13 @@ public class Item {
 
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public int getLowStock() {
+        return lowStock;
+    }
+
+    public void setLowStock(int lowStock) {
+        this.lowStock = lowStock;
     }
 }

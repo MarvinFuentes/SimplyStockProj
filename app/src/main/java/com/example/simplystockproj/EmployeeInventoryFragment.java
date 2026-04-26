@@ -45,9 +45,10 @@ public class EmployeeInventoryFragment extends Fragment {
 
         //Query to get all of the saved items from 'items' table
         //I use the business ID to keep it all organized
-        cursor = db.rawQuery("SELECT item_id, category, description, availability, image_uri FROM items WHERE business_id = ?",
-                new String[]{businessId}
-        );
+        cursor = db.rawQuery( "SELECT item_id, category, description, availability, image_uri, low_stock "
+                                + "FROM items WHERE business_id = ? "
+                                + "ORDER BY category ASC, description ASC",
+                                new String[]{businessId});
 
         while(cursor.moveToNext()){
             int itemId = cursor.getInt(0);
@@ -55,8 +56,10 @@ public class EmployeeInventoryFragment extends Fragment {
             String description = cursor.getString(2);
             int availability = cursor.getInt(3);
             String imageUri = cursor.getString(4);
+            int lowStock = cursor.getInt(5);
 
-            adapter.addItem(new Item(itemId, category, description, availability, imageUri));
+
+            adapter.addItem(new Item(itemId, category, description, availability, imageUri, lowStock));
         }
 
         cursor.close();
@@ -100,7 +103,7 @@ public class EmployeeInventoryFragment extends Fragment {
             Item item = items.get(position);
             itemView.setCategory(item.getCategory());
             itemView.setDescription(item.getDescription());
-            itemView.setAvalibility(item.getAvailability());
+            itemView.setAvailability(item.getAvailability(), item.getLowStock());
             itemView.setImage(item.getImageUri());
             itemView.getAddButton().setOnClickListener(new View.OnClickListener() {
                 @Override

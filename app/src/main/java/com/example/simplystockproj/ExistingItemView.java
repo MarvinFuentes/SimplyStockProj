@@ -1,10 +1,13 @@
 package com.example.simplystockproj;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -56,16 +59,18 @@ public class ExistingItemView extends LinearLayout {
         descriptionTextView.setText(description);
     }
 
-    public void setAvailability(int availability){
-        availabilityTextView.setText("Qty: " + availability);
+    public void setAvailability(int availability, int lowStock){
 
         if(availability == 0){
+            availabilityTextView.setText("Qty: " + availability + " - Out of Stock");
             availabilityTextView.setTextColor(Color.RED);
         }
-        else if(availability < 5){
-            availabilityTextView.setTextColor(Color.YELLOW);
+        else if(availability <= lowStock){
+            availabilityTextView.setText("Qty: " + availability + " - Low Stock");
+            availabilityTextView.setTextColor(Color.parseColor("#F39C12"));
         }
         else{
+            availabilityTextView.setText("Qty: " + availability);
             availabilityTextView.setTextColor(Color.GREEN);
         }
     }
@@ -96,7 +101,33 @@ public class ExistingItemView extends LinearLayout {
     }
 
     public void setUrl(String url){
-        URLTextView.setText(url);
+        if(url != null && !url.trim().isEmpty()){
+            String trueUrl = url.trim();
+
+            if(!trueUrl.startsWith("http://") && !trueUrl.startsWith("https://")){
+                trueUrl = "https://" + trueUrl;
+            }
+
+            URLTextView.setText("Reorder Link");
+            URLTextView.setTextColor(Color.BLUE);
+            URLTextView.setPaintFlags(URLTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+            String linkToOpen = trueUrl;
+
+            URLTextView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkToOpen));
+                    getContext().startActivity(intent);
+                }
+            });
+        }
+        else{
+            URLTextView.setText("No Reorder Link");
+            URLTextView.setTextColor(Color.GRAY);
+            URLTextView.setPaintFlags(URLTextView.getPaintFlags() & (~Paint.UNDERLINE_TEXT_FLAG));
+            URLTextView.setOnClickListener(null);
+        }
     }
 
     public Button getEditBtn(){

@@ -38,6 +38,7 @@ public class Database extends SQLiteOpenHelper {
     public static  final  String ITEM_CATEGORY_COL = "category";
     public static  final  String ITEM_IMG_URI_COL = "image_uri";
     public static  final String ITEM_AVAILABILITY_COL = "availability";
+    public static final String ITEM_LOW_STOCK = "low_stock";
 
     //First version of the Checkout table with it's corresponding columns.
     public static final String TABLE_CHECKOUT = "checkouts";
@@ -81,7 +82,8 @@ public class Database extends SQLiteOpenHelper {
                 + ITEM_URL_COL + " TEXT, "
                 + ITEM_CATEGORY_COL + " TEXT NOT NULL, "
                 + ITEM_IMG_URI_COL + " TEXT, "
-                + ITEM_AVAILABILITY_COL + " INTEGER NOT NULL"
+                + ITEM_AVAILABILITY_COL + " INTEGER NOT NULL, "
+                + ITEM_LOW_STOCK + " INTEGER NOT NULL"
                 + ");";
 
         //Table for checkouts
@@ -169,7 +171,7 @@ public class Database extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean createNewItem(int businessId, String description, String url,  String category, String imgUri, int availability){
+    public boolean createNewItem(int businessId, String description, String url,  String category, String imgUri, int availability, int lowStock){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -179,6 +181,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(ITEM_CATEGORY_COL, category);
         values.put(ITEM_IMG_URI_COL, imgUri);
         values.put(ITEM_AVAILABILITY_COL, availability);
+        values.put(ITEM_LOW_STOCK, lowStock);
 
         long result = db.insert(TABLE_ITEMS, null, values);
         return  result != -1;
@@ -225,13 +228,14 @@ public class Database extends SQLiteOpenHelper {
         return rowsDeleted > 0;
     }
 
-    public boolean updateItemInfo(int itemId, String category, String description, String url){
+    public boolean updateItemInfo(int itemId, String category, String description, String url, int lowStock){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(ITEM_CATEGORY_COL, category);
         values.put(ITEM_DESCRIPTION_COL, description);
         values.put(ITEM_URL_COL, url);
+        values.put(ITEM_LOW_STOCK, lowStock);
 
         int rowsUpdated = db.update(TABLE_ITEMS, values, ITEM_ID_COL + "=?", new String[]{String.valueOf(itemId)});
         return rowsUpdated > 0;

@@ -52,6 +52,7 @@ public class ManagerNewItemFragment extends Fragment {
         EditText newItemURLText = view.findViewById(R.id.niURLEditText);
         EditText newItemCategoryText = view.findViewById(R.id.niCategoryEditText);
         EditText newItemAvailabilityText = view.findViewById(R.id.niAvailabilityEditText);
+        EditText newItemLowStockText = view.findViewById(R.id.niLowStockEditText);
 
         //Help from Stack Overflow
         //https://stackoverflow.com/questions/77571331/how-to-open-image-gallery-in-android-14-api-34-to-pick-image
@@ -73,6 +74,7 @@ public class ManagerNewItemFragment extends Fragment {
                 String newItemURL = newItemURLText.getText().toString().trim();
                 String newItemCategory = newItemCategoryText.getText().toString().trim();
                 String newItemAvailability = newItemAvailabilityText.getText().toString().trim();
+                String newItemLowStock = newItemLowStockText.getText().toString().trim();
 
                 //Check to see if the item has a description & category
                 if(newItemDescription.isEmpty()){
@@ -87,9 +89,18 @@ public class ManagerNewItemFragment extends Fragment {
                     newItemAvailabilityText.setError("Enter a quantity");
                     return;
                 }
+                if(newItemLowStock.isEmpty()){
+                    newItemLowStockText.setError("Enter a quantity");
+                    return;
+                }
                 //Extra insurance that the user doesn't past text into editText
                 if(!newItemAvailability.matches("\\d+")){
                     newItemAvailabilityText.setError("Only digits can be entered");
+                    return;
+                }
+                //Extra insurance that the user doesn't past text into editText
+                if(!newItemLowStock.matches("\\d+")){
+                    newItemLowStockText.setError("Only digits can be entered");
                     return;
                 }
 
@@ -107,7 +118,7 @@ public class ManagerNewItemFragment extends Fragment {
                     imagePath = saveImageToInternalStorage(selectedImageUri);
                 }
 
-                if(dbHelper.createNewItem(businessId, newItemDescription, newItemURL, newItemCategory, imagePath, Integer.parseInt(newItemAvailability))){
+                if(dbHelper.createNewItem(businessId, newItemDescription, newItemURL, newItemCategory, imagePath, Integer.parseInt(newItemAvailability), Integer.parseInt(newItemLowStock))){
                     Toast.makeText(requireContext(), "New item created", Toast.LENGTH_SHORT).show();
                     requireActivity().getSupportFragmentManager().popBackStack();
                 }

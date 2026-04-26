@@ -19,13 +19,18 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ConsumptionChartFragment extends Fragment {
     Database dbHelper;
     SQLiteDatabase db;
     Cursor cursor;
+    String filterType = "daily";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,20 +59,56 @@ public class ConsumptionChartFragment extends Fragment {
             businessId = getArguments().getInt("BUSINESS_ID");
             userName = getArguments().getString("USER_NAME");
             checkoutDate = getArguments().getString("CHECKOUT_DATE");
+            filterType = getArguments().getString("FILTER_TYPE", "daily");
         }
 
-        userDateText.setText(userName + " - " + checkoutDate);
+        String displayDate;
+
+        if(filterType.equals("weekly")){
+            displayDate = DateFormatter.weekly(checkoutDate);
+        }
+        else if(filterType.equals("monthly")){
+            displayDate = DateFormatter.monthly(checkoutDate);
+        }
+        else{
+            displayDate = DateFormatter.daily(checkoutDate);
+        }
+
+        userDateText.setText(userName + "  |  " + displayDate);
 
         List<DataEntry> data = new ArrayList<>();
 
-        cursor = db.rawQuery( "SELECT items.description, SUM(checkouts.quantity) "
-                                + "FROM checkouts "
-                                + "JOIN items ON checkouts.item_id = items.item_id "
-                                + "WHERE checkouts.business_id = ? "
-                                + "AND checkouts.user_id = ? "
-                                + "AND checkouts.date = ? "
-                                + "GROUP BY items.description",
-                                new String[]{String.valueOf(businessId), String.valueOf(userId), checkoutDate});
+        String query;
+
+        if(filterType.equals("weekly")){
+            query = "SELECT items.description, SUM(checkouts.quantity) "
+                    + "FROM checkouts "
+                    + "JOIN items ON checkouts.item_id = items.item_id "
+                    + "WHERE checkouts.business_id = ? "
+                    + "AND checkouts.user_id = ? "
+                    + "AND strftime('%Y-W%W', checkouts.date) = ? "
+                    + "GROUP BY items.description";
+        }
+        else if(filterType.equals("monthly")){
+            query = "SELECT items.description, SUM(checkouts.quantity) "
+                    + "FROM checkouts "
+                    + "JOIN items ON checkouts.item_id = items.item_id "
+                    + "WHERE checkouts.business_id = ? "
+                    + "AND checkouts.user_id = ? "
+                    + "AND substr(checkouts.date, 1, 7) = ? "
+                    + "GROUP BY items.description";
+        }
+        else{
+            query = "SELECT items.description, SUM(checkouts.quantity) "
+                    + "FROM checkouts "
+                    + "JOIN items ON checkouts.item_id = items.item_id "
+                    + "WHERE checkouts.business_id = ? "
+                    + "AND checkouts.user_id = ? "
+                    + "AND checkouts.date = ? "
+                    + "GROUP BY items.description";
+        }
+
+        cursor = db.rawQuery(query, new String[]{String.valueOf(businessId), String.valueOf(userId), checkoutDate});
 
         while (cursor.moveToNext()){
             String itemDescription = cursor.getString(0);

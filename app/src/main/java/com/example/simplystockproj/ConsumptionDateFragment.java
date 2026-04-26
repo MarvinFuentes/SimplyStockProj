@@ -13,15 +13,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ConsumptionDateFragment extends Fragment {
     Database dbHelper;
     SQLiteDatabase db;
     Cursor cursor;
     DateAdapter adapter;
+
+    String filterType = "daily";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,21 +47,37 @@ public class ConsumptionDateFragment extends Fragment {
         db = dbHelper.getReadableDatabase();
         adapter = new DateAdapter();
 
+        String query;
         int userId = -1;
         String userName = "";
 
         if(getArguments() != null){
             userId = getArguments().getInt("USER_ID");
             userName = getArguments().getString("USER_NAME");
+            filterType = getArguments().getString("FILTER_TYPE", "daily");
         }
 
         String bizId = String.valueOf(((ManagerActivity) requireActivity()).getBusinessId());
 
-        cursor = db.rawQuery( "SELECT DISTINCT date "
-                                + "FROM checkouts "
-                                + "WHERE business_id = ? AND user_id = ? "
-                                + "ORDER BY date DESC",
-                                new String[]{bizId, String.valueOf(userId)});
+        if(filterType.equals("monthly")){
+            query =   "SELECT DISTINCT substr(date, 1, 7) "
+                    + "FROM checkouts "
+                    + "WHERE business_id = ? AND user_id = ? "
+                    + "ORDER BY date DESC";
+        }
+        else if(filterType.equals("weekly")){
+            query =   "SELECT DISTINCT strftime('%Y-W%W', date) "
+                    + "FROM checkouts "
+                    + "WHERE business_id = ? AND user_id = ? "
+                    + "ORDER BY date DESC";
+        }
+        else{
+            query =   "SELECT DISTINCT date "
+                    + "FROM checkouts "
+                    + "WHERE business_id = ? AND user_id = ? "
+                    + "ORDER BY date DESC";
+        }
+        cursor = db.rawQuery(query, new String[]{bizId, String.valueOf(userId)});
 
         while(cursor.moveToNext()){
             String checkoutDate = cursor.getString(0);
@@ -98,7 +121,17 @@ public class ConsumptionDateFragment extends Fragment {
             }
 
             TextView dateText = convertView.findViewById(R.id.cdrDates);
-            dateText.setText(userDates.get(position));
+            String actualDate = userDates.get(position);
+
+            if(filterType.equals("weekly")){
+                dateText.setText(DateFormatter.weekly(actualDate));
+            }
+            else if(filterType.equals("monthly")){
+                dateText.setText(DateFormatter.monthly(actualDate));
+            }
+            else{
+                dateText.setText(DateFormatter.daily(actualDate));
+            }
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,6 +141,7 @@ public class ConsumptionDateFragment extends Fragment {
                     bundle.putInt("USER_ID", userIds.get(position));
                     bundle.putString("USER_NAME", userNames.get(position));
                     bundle.putString("CHECKOUT_DATE", userDates.get(position));
+                    bundle.putString("FILTER_TYPE", filterType);
                     bundle.putInt("BUSINESS_ID", ((ManagerActivity) requireActivity()).getBusinessId());
 
                     ConsumptionChartFragment fragment = new ConsumptionChartFragment();
