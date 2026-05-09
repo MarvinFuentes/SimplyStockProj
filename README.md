@@ -183,11 +183,11 @@ And this is only the beginning.
 <p align="center"><i>Employee inventory view, menu button with "Cart" button, and Cart view/Checkout System</i></p>
 <br>
 
-### Manager Features
+### Manager Feature - Existing Items - Core Features
 <p align="center">
-  <img src="screenshots/NewItemFrag-Manager.png" width="250" />
-  <img src="screenshots/ExistingItemsFrag-Manager.png" width="250" />
-  <img src="screenshots/ProfileManagementFrag-Manager.png" width="250" />
+  <img src="screenshots/ManagerExisting.png" width="250" />
+  <img src="screenshots/EditDialogBox.png" width="250" />
+  <img src="screenshots/DeleteExistingItemDialogBox.png" width="250" />
 </p>
 <p align="center"><i>New item creation, existing items, and profile management</i></p>
 <br>
@@ -195,14 +195,16 @@ And this is only the beginning.
 ### Analytics
 <p align="center">
   <img src="screenshots/CompAnalyticsWeeklySelc.png" width="300" />
+  <img src="screenshots/CompSelcWeekly.png" width="300" />
   <img src="screenshots/CompSelcGraphForWeekOfMArvin.png" width="300" />
 </p>
 <p align="center"><i>Bar chart using AnyChart for consumption analytic</i></p>
 <br>
 
-### Business Selection
+### Business Selection/Business Creation
 <p align="center">
   <img src="screenshots/ExistingBusinessFrag.png" width="300" />
+  <img src="screenshots/NewBusinessFragment.png" width="300" />
 </p>
-<p align="center"><i>Scroll view displaying all available businesses</i></p>
+<p align="center"><i>Scroll view displaying all available businesses, and Sign up process for new businesses</i></p>
 <br>
